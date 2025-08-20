@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Loup-Garou de Thiercelieux</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+    
+	<body>
+		<div class="game-container">
+			<h1>Loup-Garou de Thiercelieux</h1>
+
+			<div id="players-section">
+				<div id="welcome-section">
+					<h1>Bienvenue au Loup-Garou de Thiercelieux !</h1>
+					<button id="start-btn">Commencer</button>
+				</div>
+
+				<div id="game-section" style="display: none">
+					<h2>Joueurs inscrits :</h2>
+					<ul id="players-list"></ul>
+					<button id="assign-roles-btn">Tirer les rôles</button>
+				</div>
+
+				<h2>Joueurs</h2>
+				<ul id="players-list"></ul>
+				<button id="start-game-btn">Commencer la partie</button>
+			</div>
+
+			<!-- Section chat -->
+			<div id="chat-section">
+				<h2>Chat</h2>
+				<div id="chat-box"></div>
+				<input type="text" id="chat-input" placeholder="Écrire un message..." />
+				<button id="send-chat-btn">Envoyer</button>
+			</div>
+
+			<!-- Section jour/nuit -->
+			<div id="day-night-section">
+				<h2 id="phase-title">Phase : Jour</h2>
+				<p>Temps restant : <span id="timer">03:00</span></p>
+				<button id="vote-btn">Voter</button>
+			</div>
+		</div>
+        <script src="js/index.js"></script>
+	</body>
+</html>
