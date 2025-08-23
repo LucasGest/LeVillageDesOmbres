@@ -3,7 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Chat Loup Garou</title>
-   <script type="module">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; margin-bottom: 10px; }
+    #players { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+    input, button { padding: 8px; margin: 5px 0; }
+    #roomInfo { margin-top: 15px; padding: 10px; border: 1px dashed #666; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>🎲 Loup Garou - Chat & Joueurs</h1>
+
+  <div>
+    <label>Pseudo :</label>
+    <input type="text" id="username" placeholder="Ton pseudo">
+    <button onclick="createGame()">Créer une partie</button>
+    <input type="text" id="roomInput" placeholder="Code de partie">
+    <button onclick="joinGame()">Rejoindre</button>
+  </div>
+
+  <div id="roomInfo"></div>
+
+  <h3>👥 Joueurs connectés</h3>
+  <div id="players"></div>
+
+  <h3>💬 Chat</h3>
+  <div id="chat"></div>
+  <input type="text" id="message" placeholder="Écris ton message">
+  <button onclick="sendMessage()">Envoyer</button>
+
+     <script type="module">
     // Import Firebase SDK
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getDatabase, ref, push, set, onValue, onChildAdded, remove } 
@@ -104,34 +133,6 @@
     window.joinGame = joinGame;
     window.sendMessage = sendMessage;
   </script>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #chat { border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; margin-bottom: 10px; }
-    #players { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
-    input, button { padding: 8px; margin: 5px 0; }
-    #roomInfo { margin-top: 15px; padding: 10px; border: 1px dashed #666; background: #f9f9f9; }
-  </style>
-</head>
-<body>
-  <h1>🎲 Loup Garou - Chat & Joueurs</h1>
-
-  <div>
-    <label>Pseudo :</label>
-    <input type="text" id="username" placeholder="Ton pseudo">
-    <button onclick="createGame()">Créer une partie</button>
-    <input type="text" id="roomInput" placeholder="Code de partie">
-    <button onclick="joinGame()">Rejoindre</button>
-  </div>
-
-  <div id="roomInfo"></div>
-
-  <h3>👥 Joueurs connectés</h3>
-  <div id="players"></div>
-
-  <h3>💬 Chat</h3>
-  <div id="chat"></div>
-  <input type="text" id="message" placeholder="Écris ton message">
-  <button onclick="sendMessage()">Envoyer</button>
 
 
 </body>
