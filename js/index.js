@@ -1,81 +1,99 @@
-// Tableau pour stocker les joueurs
-let players = [];
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, push, set, onValue, onChildAdded, remove } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-// Tous les rôles classiques
-const roles = [
-    {name: "Loup-Garou", description: "Chaque nuit, les loups-garous choisissent une victime."},
-    {name: "Loup-Garou", description: "Chaque nuit, les loups-garous choisissent une victime."},
-    {name: "Voyante", description: "Chaque nuit, tu peux découvrir le rôle d’un joueur."},
-    {name: "Sorcière", description: "Tu as une potion de vie et une potion de mort à utiliser une fois chacune."},
-    {name: "Chasseur", description: "Si tu meurs, tu peux éliminer un autre joueur."},
-    {name: "Cupidon", description: "Tu choisis deux amoureux qui mourront ensemble."},
-    {name: "Petite Fille", description: "Tu peux espionner les loups-garous la nuit, mais attention à ne pas te faire tuer."},
-    {name: "Villageois", description: "Tu n’as pas de pouvoir spécial, mais tu votes pour éliminer les loups-garous."}
-    // Tu peux ajouter d'autres rôles officiels ici
-];
+    // ⚠️ Mets ici la config donnée par Firebase
+    const firebaseConfig = {
+      apiKey: "xxxx",
+      authDomain: "xxxx.firebaseapp.com",
+      databaseURL: "https://xxxx.firebaseio.com",
+      projectId: "xxxx",
+      storageBucket: "xxxx.appspot.com",
+      messagingSenderId: "xxxx",
+      appId: "xxxx"
+    };
 
-// Stocke les rôles assignés aux joueurs
-let playerRoles = {};
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-// Ajouter un joueur
-function addPlayer() {
-    const name = prompt("Quel est ton prénom ?");
-    if (!name || name.trim() === "") {
-        alert("Tu dois entrer un prénom !");
-        return;
+    let roomId = null;
+    let username = null;
+    let playerKey = null; // pour supprimer le joueur à la déconnexion
+
+    // Génère un code de partie style LG-AB12CD
+    function generateRoomCode() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let code = "";
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return "LG-" + code;
     }
 
-    players.push(name.trim());
-    updatePlayersList();
-}
+    // Créer une nouvelle partie
+    function createGame() {
+      username = document.getElementById("username").value.trim();
+      if (!username) return alert("Choisis un pseudo !");
+      
+      roomId = generateRoomCode();
+      document.getElementById("roomInfo").innerHTML = 
+        `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
 
-// Met à jour la liste des joueurs dans la page
-function updatePlayersList() {
-    const list = document.getElementById("players-list");
-    list.innerHTML = "";
-    players.forEach(player => {
-        const li = document.createElement("li");
-        li.textContent = player;
-        list.appendChild(li);
-    });
-}
-
-// Tirage aléatoire des rôles
-function assignRoles() {
-    if (players.length < 8) {
-        alert("Il faut au moins 8 joueurs pour commencer !");
-        return;
+      joinRoom();
     }
 
-    // Mélanger les rôles
-    const shuffledRoles = roles.sort(() => Math.random() - 0.5);
+    // Rejoindre une partie existante
+    function joinGame() {
+      username = document.getElementById("username").value.trim();
+      roomId = document.getElementById("roomInput").value.trim().toUpperCase();
+      if (!username || !roomId) return alert("Entre ton pseudo et un code de partie !");
+      
+      document.getElementById("roomInfo").innerHTML = 
+        `<b>Tu as rejoint la partie :</b> ${roomId}`;
 
-    players.forEach((player, index) => {
-        playerRoles[player] = shuffledRoles[index];
-    });
+      joinRoom();
+    }
 
-    // Afficher chaque joueur et permettre de voir son rôle
-    const playersList = document.getElementById("players-list");
-    playersList.innerHTML = "";
-    players.forEach(player => {
-        const li = document.createElement("li");
-        li.textContent = `${player} : Clique pour voir ton rôle`;
-        li.style.cursor = "pointer";
+    function joinRoom() {
+      // Ajouter le joueur dans Firebase
+      const playersRef = ref(db, `rooms/${roomId}/players`);
+      const newPlayer = push(playersRef);
+      set(newPlayer, username);
+      playerKey = newPlayer.key;
 
-        li.addEventListener("click", () => {
-            alert(`${player}, ton rôle est : ${playerRoles[player].name}\n${playerRoles[player].description}`);
-        });
+      // Afficher les joueurs connectés en live
+      onValue(playersRef, (snapshot) => {
+        const players = snapshot.val() || {};
+        document.getElementById("players").innerHTML = Object.values(players).join("<br>");
+      });
 
-        playersList.appendChild(li);
-    });
-}
+      // Charger les messages du chat
+      const chatRef = ref(db, `rooms/${roomId}/messages`);
+      onChildAdded(chatRef, (snapshot) => {
+        const msg = snapshot.val();
+        const chatBox = document.getElementById("chat");
+        chatBox.innerHTML += `<div><b>${msg.username}:</b> ${msg.message}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
 
-// Événements sur les boutons
-document.getElementById("start-btn").addEventListener("click", () => {
-    addPlayer();
-    document.getElementById("welcome-section").style.display = "none";
-    document.getElementById("game-section").style.display = "block";
-});
+      // Supprimer le joueur s'il ferme la page
+      window.addEventListener("beforeunload", () => {
+        if (playerKey) {
+          remove(ref(db, `rooms/${roomId}/players/${playerKey}`));
+        }
+      });
+    }
 
-document.getElementById("assign-roles-btn").addEventListener("click", assignRoles);
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      if (!message || !username || !roomId) return;
+      const chatRef = ref(db, `rooms/${roomId}/messages`);
+      push(chatRef, { username, message });
+      document.getElementById("message").value = "";
+    }
 
+    // Rendre les fonctions accessibles
+    window.createGame = createGame;
+    window.joinGame = joinGame;
+    window.sendMessage = sendMessage;
