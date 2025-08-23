@@ -44,5 +44,55 @@
 			</div>
 		</div>
         <script src="js/index.js"></script>
+
+		<script type="module">
+  // Import des librairies Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, push, set, onChildAdded, onValue } 
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+  // ⚠️ Mets ici la config donnée par Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA181_gZwR6YfqhFiZkJ7IZKVSi9Qn1A8s",
+    authDomain: "loup-garou-b0b31.firebaseapp.com",
+    databaseURL: "https://loup-garou-b0b31-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "loup-garou-b0b31",
+    storageBucket: "loup-garou-b0b31.firebasestorage.app",
+    messagingSenderId: "559349895784",
+    appId: "1:559349895784:web:0caac5eda9d13bc48521dd",
+    measurementId: "G-0G25P8RGFW"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Exemple : créer/join une room
+  const roomId = "LG123"; // tu peux générer un code unique
+  const username = "Alice";
+
+  // Référence des joueurs
+  const playersRef = ref(db, `rooms/${roomId}/players`);
+  const chatRef = ref(db, `rooms/${roomId}/messages`);
+
+  // Ajouter un joueur
+  push(playersRef, username);
+
+  // Écouter la liste des joueurs
+  onValue(playersRef, (snapshot) => {
+    const players = snapshot.val();
+    console.log("Joueurs dans la partie :", players);
+  });
+
+  // Envoyer un message
+  function sendMessage(message) {
+    push(chatRef, { username, message });
+  }
+
+  // Écouter les nouveaux messages
+  onChildAdded(chatRef, (snapshot) => {
+    const msg = snapshot.val();
+    console.log(`${msg.username}: ${msg.message}`);
+  });
+</script>
 	</body>
 </html>
