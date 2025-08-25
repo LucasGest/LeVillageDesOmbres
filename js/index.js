@@ -100,7 +100,6 @@ function startGame() {
             for (const key in players) {
                 const role = rolesPool[i];
                 set(ref(db, `rooms/${roomId}/roles/${key}`), role);
-                console.log("🎭 Rôle attribué :", players[key], "→", role);
                 i++;
             }
         },
@@ -113,7 +112,6 @@ function startGame() {
         phaseEnd: Date.now() + 3 * 60 * 1000,
     });
 
-    alert("La partie a commencé !");
 }
 
 
