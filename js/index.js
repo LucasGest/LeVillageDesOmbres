@@ -172,29 +172,6 @@ function endGame() {
   document.getElementById("roomInfo").innerHTML = "";
 }
 
-
-// --- Ecoute joueurs ---
-function listenPlayers() {
-  const playersRef = ref(db, `rooms/${roomId}/players`);
-  onValue(playersRef, (snapshot) => {
-    const players = snapshot.val() || {};
-    playerList = Object.values(players);
-    document.getElementById("players").innerHTML = playerList.map(p => `<div>${p.username}</div>`).join("");
-  });
-}
-
-// --- Ecoute chat ---
-function listenChat() {
-  const chatRef = ref(db, `rooms/${roomId}/messages`);
-  onValue(chatRef, (snapshot) => {
-    const messages = snapshot.val() || {};
-    document.getElementById("chat").innerHTML = Object.values(messages)
-      .sort((a, b) => a.ts - b.ts)
-      .map(m => `<div><b>${m.username}:</b> ${m.message}</div>`)
-      .join("");
-  });
-}
-
 // --- Envoi avec Entrée ---
 document.getElementById("message").addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
