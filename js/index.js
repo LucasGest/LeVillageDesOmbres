@@ -178,7 +178,7 @@ document.getElementById("message").addEventListener("keypress", (e) => {
 	if (e.key === "Enter") {
 		sendMessage();
 	}
-});w
+});
 
 
 // Rendre accessible depuis HTML
