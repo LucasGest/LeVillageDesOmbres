@@ -203,7 +203,25 @@ function endGame() {
 		document.getElementById("chat").innerHTML = "";
 		document.getElementById("roomInfo").innerHTML = "";
 	}
+
+    if (isCreator) {
+    remove(ref(db, `rooms/${roomId}`));
+    alert("La partie a été terminée !");
+  } else {
+    alert("❌ Seul le créateur peut terminer la partie !");
+  }
 }
+
+function updateEndGameButton() {
+  const endBtn = document.getElementById("endGameBtn");
+  if (isCreator) {
+    endBtn.style.display = "inline-block";
+  } else {
+    endBtn.style.display = "none";
+  }
+}
+
+updateEndGameButton();
 
 // Envoi du message avec Entrée
 document.getElementById("message").addEventListener("keypress", (e) => {
