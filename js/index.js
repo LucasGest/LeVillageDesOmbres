@@ -24,6 +24,7 @@ let playerKey = null;
 let playerList = [];
 
 
+
 const roles = [
   {
     code: "CUP",
@@ -170,9 +171,3 @@ function endGame() {
   document.getElementById("chat").innerHTML = "";
   document.getElementById("roomInfo").innerHTML = "";
 }
-
-// Expose globalement
-window.createGame = createGame;
-window.joinGame = joinGame;
-window.sendMessage = sendMessage;
-window.endGame = endGame;
