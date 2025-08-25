@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Loup-Garou de Thiercelieux</title>
 		<link rel="stylesheet" href="css/style.css" />
-       		<script type="module" src="js/index.js"></script>
+		<script type="module" src="js/index.js"></script>
 	</head>
 	<body>
 		<header>
@@ -24,16 +24,29 @@
 						type="text"
 						placeholder="Code de la room (ex: LG-abc123)"
 					/>
-          <p id="roomInfo"></p>
+					<p id="roomInfo"></p>
 				</div>
 				<div class="row" style="margin-top: 8px">
-					<button onclick="createGame()" id="createBtn">Créer une partie</button>
-					<button onclick="joinGame()" id="joinBtn">Rejoindre</button>
+					<button onclick="createGame()" id="createBtn">
+						Créer une partie
+					</button>
+					<button
+						onclick="joinGame(
+  document.getElementById('usernameInput').value,
+  document.getElementById('roomInput').value
+)"
+						id="joinBtn"
+					>
+						Rejoindre
+					</button>
 				</div>
-				<button id="endBtn" style="margin-top: 8px; background: #ef4444">
+				<button
+					onclick="endGame()"
+					id="endBtn"
+					style="margin-top: 8px; background: #ef4444"
+				>
 					Terminer la partie
 				</button>
-
 				<h3 style="margin-top: 16px">Joueurs</h3>
 				<div id="players"></div>
 				<div class="muted" style="margin-top: 6px">
@@ -51,7 +64,7 @@
 						type="text"
 						placeholder="Écris un message et appuie sur Entrée"
 					/>
-					<button id="sendBtn">Envoyer</button>
+					<button id="sendBtn" onclick="sendMessage()">Envoyer</button>
 				</div>
 			</section>
 
