@@ -8,25 +8,35 @@
 		<script type="module" src="js/index.js"></script>
 	</head>
 	<body>
-		<h1>🐺 Loup Garou de Thiercelieux</h1>
+		<h1>🐺 Jeu du Loup-Garou</h1>
 
-  <button onclick="createGame()">Créer une partie</button>
-<input id="roomInput" placeholder="Code room">
-<input id="playerName" placeholder="Pseudo">
-<button onclick="joinGame()">Rejoindre</button>
+  <div id="roomInfo"></div>
 
-  <h2 id="roomInfo"></h2>
-  <h3>👥 Joueurs</h3>
-  <div id="players"></div>
+  <div class="container">
+    <!-- Bloc Joueurs -->
+    <div class="card">
+      <h2>Joueurs</h2>
+      <input type="text" id="username" placeholder="Ton pseudo"><br>
+      <input type="text" id="roomId" placeholder="Code de la room"><br>
 
-  <h3>💬 Chat</h3>
-  <div id="chat"></div>
-  <input id="message" placeholder="Écris un message...">
-  <button onclick="sendMessage()">Envoyer</button>
+      <button onclick="createGame()">Créer une partie</button>
+      <button onclick="joinGame()">Rejoindre une partie</button>
+      <button onclick="endGame()">Terminer la partie</button>
 
-  <h3>📜 Rôles disponibles</h3>
-  <div class="roles-grid" id="rolesGrid"></div>
+      <h3>Liste des joueurs :</h3>
+      <div id="players"></div>
+    </div>
 
-  <button onclick="endGame()">❌ Finir la partie</button>
+    <!-- Bloc Chat -->
+    <div class="card">
+      <h2>Chat</h2>
+      <div id="chat"></div>
+      <input type="text" id="message" placeholder="Écris un message...">
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+
+  <!-- Ton JS -->
+  <script type="module" src="index.js"></script>
 	</body>
 </html>
