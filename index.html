@@ -1,145 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Chat Loup Garou</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #chat { border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; margin-bottom: 10px; }
-    #players { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
-    input, button { padding: 8px; margin: 5px 0; }
-    #roomInfo { margin-top: 15px; padding: 10px; border: 1px dashed #666; background: #f9f9f9; }
-  </style>
-</head>
-<body>
-  <h1>🎲 Loup Garou - Chat & Joueurs</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Chat Loup Garou</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<h1>🎲 Loup Garou - Chat & Joueurs</h1>
 
-  <div>
-    <label>Pseudo :</label>
-    <input type="text" id="username" placeholder="Ton pseudo">
-    <button onclick="createGame()">Créer une partie</button>
-    <input type="text" id="roomInput" placeholder="Code de partie">
-    <button onclick="joinGame()">Rejoindre</button>
-  </div>
+		<div>
+			<label>Pseudo :</label>
+			<input type="text" id="username" placeholder="Ton pseudo" />
+			<button onclick="createGame()">Créer une partie</button>
+			<input type="text" id="roomInput" placeholder="Code de partie" />
+			<button onclick="joinGame()">Rejoindre</button>
+		</div>
 
-  <div id="roomInfo"></div>
+		<div id="roomInfo"></div>
 
-  <h3>👥 Joueurs connectés</h3>
-  <div id="players"></div>
+		<h3>👥 Joueurs connectés</h3>
+		<div id="players"></div>
 
-  <h3>💬 Chat</h3>
-  <div id="chat"></div>
-  <input type="text" id="message" placeholder="Écris ton message">
-  <button onclick="sendMessage()">Envoyer</button>
-  <button onclick="debugPlayers()">📋 Voir joueurs en console</button>
+		<h3>💬 Chat</h3>
+		<div id="chat"></div>
+		<input type="text" id="message" placeholder="Écris ton message" />
+		<button onclick="sendMessage()">Envoyer</button>
+		<button onclick="debugPlayers()">📋 Voir joueurs en console</button>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, push, set, onValue, onChildAdded, remove } 
-      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-
-    // ⚠️ Mets ici ta config Firebase
-    const firebaseConfig = {
-      apiKey: "xxxx",
-      authDomain: "xxxx.firebaseapp.com",
-      databaseURL: "https://xxxx-default-rtdb.firebaseio.com",
-      projectId: "xxxx",
-      storageBucket: "xxxx.appspot.com",
-      messagingSenderId: "xxxx",
-      appId: "xxxx"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    let roomId = null;
-    let username = null;
-    let playerKey = null;
-    let playerList = []; // tableau global des joueurs
-
-    // Génère un code de room style LG-XXXXXX
-    function generateRoomCode() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      let code = "";
-      for (let i = 0; i < 6; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return "LG-" + code;
-    }
-
-    // Créer une partie
-    function createGame() {
-      username = document.getElementById("username").value.trim();
-      if (!username) return alert("Choisis un pseudo !");
-      
-      roomId = generateRoomCode();
-      document.getElementById("roomInfo").innerHTML = 
-        `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
-
-      joinRoom();
-    }
-
-    // Rejoindre une partie existante
-    function joinGame() {
-      username = document.getElementById("username").value.trim();
-      roomId = document.getElementById("roomInput").value.trim().toUpperCase();
-      if (!username || !roomId) return alert("Entre ton pseudo et un code de partie !");
-      
-      document.getElementById("roomInfo").innerHTML = 
-        `<b>Tu as rejoint la partie :</b> ${roomId}`;
-
-      joinRoom();
-    }
-
-    function joinRoom() {
-      const playersRef = ref(db, `rooms/${roomId}/players`);
-      const newPlayer = push(playersRef);
-      set(newPlayer, username);
-      playerKey = newPlayer.key;
-
-      // Stocker les joueurs dans un tableau + afficher
-      onValue(playersRef, (snapshot) => {
-        const players = snapshot.val() || {};
-        playerList = Object.values(players);
-        document.getElementById("players").innerHTML = playerList.join("<br>");
-      });
-
-      // Chat en live
-      const chatRef = ref(db, `rooms/${roomId}/messages`);
-      onChildAdded(chatRef, (snapshot) => {
-        const msg = snapshot.val();
-        const chatBox = document.getElementById("chat");
-        chatBox.innerHTML += `<div><b>${msg.username}:</b> ${msg.message}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-      });
-
-      // Supprimer joueur à la déconnexion
-      window.addEventListener("beforeunload", () => {
-        if (playerKey) {
-          remove(ref(db, `rooms/${roomId}/players/${playerKey}`));
-        }
-      });
-    }
-
-    // Envoyer message
-    function sendMessage() {
-      const message = document.getElementById("message").value.trim();
-      if (!message || !username || !roomId) return;
-      const chatRef = ref(db, `rooms/${roomId}/messages`);
-      push(chatRef, { username, message });
-      document.getElementById("message").value = "";
-    }
-
-    // Debug : afficher la liste en console
-    function debugPlayers() {
-      console.log("Liste actuelle des joueurs :", playerList);
-    }
-
-    // Rendre accessible depuis HTML
-    window.createGame = createGame;
-    window.joinGame = joinGame;
-    window.sendMessage = sendMessage;
-    window.debugPlayers = debugPlayers;
-  </script>
-</body>
+		<script type="module" src="js/index.js"></script>
+	</body>
 </html>
