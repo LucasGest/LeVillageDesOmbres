@@ -1,26 +1,27 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fdf6e3;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+	font-family: Arial, sans-serif;
+	padding: 20px;
 }
-
-.game-container {
-    max-width: 800px;
-    width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+#chat {
+	border: 1px solid #ccc;
+	padding: 10px;
+	height: 200px;
+	overflow-y: auto;
+	margin-bottom: 10px;
 }
-
-#chat-box {
-    border: 1px solid #ccc;
-    height: 200px;
-    overflow-y: auto;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+#players {
+	margin: 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+input,
+button {
+	padding: 8px;
+	margin: 5px 0;
+}
+#roomInfo {
+	margin-top: 15px;
+	padding: 10px;
+	border: 1px dashed #666;
+	background: #f9f9f9;
 }
