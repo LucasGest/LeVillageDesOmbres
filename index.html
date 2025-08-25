@@ -1,78 +1,145 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Loup-Garou de Thiercelieux</title>
-		<link rel="stylesheet" href="css/style.css" />
-<script type="module" src="js/index.js" defer></script>
-	</head>
-	<body>
-		<header>
-  <h1>🐺 Loup-Garou de Thiercelieux</h1>
-  <div id="roomInfo" class="room-info"></div>
-</header>
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Loup Garou</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; margin-bottom: 10px; }
+    #players { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+    input, button { padding: 8px; margin: 5px 0; }
+    #roomInfo { margin-top: 15px; padding: 10px; border: 1px dashed #666; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>🎲 Loup Garou - Chat & Joueurs</h1>
 
-		<main class="container">
-			<!-- Colonne joueurs / contrôle partie -->
-			<section class="card">
-				<h2>Contrôle de la partie</h2>
-				<div class="row">
-					<input id="usernameInput" type="text" placeholder="Ton pseudo" />
-					<input
-						id="roomInput"
-						type="text"
-						placeholder="Code de la room (ex: LG-abc123)"
-					/>
-				</div>
-				<div class="row" style="margin-top: 8px">
-					<button onclick="createGame()" id="createBtn">
-						Créer une partie
-					</button>
-					<button
-						onclick="joinGame(
-  document.getElementById('usernameInput').value,
-  document.getElementById('roomInput').value
-)"
-						id="joinBtn"
-					>
-						Rejoindre
-					</button>
-				</div>
-				<button
-					onclick="endGame()"
-					id="endBtn"
-					style="margin-top: 8px; background: #ef4444"
-				>
-					Terminer la partie
-				</button>
-				<h3 style="margin-top: 16px">Joueurs</h3>
-				<div id="players"></div>
-				<div class="muted" style="margin-top: 6px">
-					Les joueurs apparaissent ici en temps réel.
-				</div>
-			</section>
+  <div>
+    <label>Pseudo :</label>
+    <input type="text" id="username" placeholder="Ton pseudo">
+    <button onclick="createGame()">Créer une partie</button>
+    <input type="text" id="roomInput" placeholder="Code de partie">
+    <button onclick="joinGame()">Rejoindre</button>
+  </div>
 
-			<!-- Colonne chat -->
-			<section class="card">
-				<h2>Chat</h2>
-				<div id="chat"></div>
-				<div class="row" style="margin-top: 8px">
-					<input
-						id="message"
-						type="text"
-						placeholder="Écris un message et appuie sur Entrée"
-					/>
-					<button id="sendBtn" onclick="sendMessage()">Envoyer</button>
-				</div>
-			</section>
+  <div id="roomInfo"></div>
 
-			<!-- Rôles (facultatif, tu peux supprimer ce bloc si tu veux) -->
-			<section class="card" style="grid-column: 1 / -1">
-				<h2>Rôles (aperçu)</h2>
-				<div id="rolesGrid" class="roles-grid"></div>
-			</section>
-		</main>
-		<script type="module" src="js/index.js"></script>
-	</body>
+  <h3>👥 Joueurs connectés</h3>
+  <div id="players"></div>
+
+  <h3>💬 Chat</h3>
+  <div id="chat"></div>
+  <input type="text" id="message" placeholder="Écris ton message">
+  <button onclick="sendMessage()">Envoyer</button>
+  <button onclick="debugPlayers()">📋 Voir joueurs en console</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, push, set, onValue, onChildAdded, remove } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    // ⚠️ Mets ici ta config Firebase
+    const firebaseConfig = {
+      apiKey: "xxxx",
+      authDomain: "xxxx.firebaseapp.com",
+      databaseURL: "https://xxxx-default-rtdb.firebaseio.com",
+      projectId: "xxxx",
+      storageBucket: "xxxx.appspot.com",
+      messagingSenderId: "xxxx",
+      appId: "xxxx"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    let roomId = null;
+    let username = null;
+    let playerKey = null;
+    let playerList = []; // tableau global des joueurs
+
+    // Génère un code de room style LG-XXXXXX
+    function generateRoomCode() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let code = "";
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return "LG-" + code;
+    }
+
+    // Créer une partie
+    function createGame() {
+      username = document.getElementById("username").value.trim();
+      if (!username) return alert("Choisis un pseudo !");
+      
+      roomId = generateRoomCode();
+      document.getElementById("roomInfo").innerHTML = 
+        `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
+
+      joinRoom();
+    }
+
+    // Rejoindre une partie existante
+    function joinGame() {
+      username = document.getElementById("username").value.trim();
+      roomId = document.getElementById("roomInput").value.trim().toUpperCase();
+      if (!username || !roomId) return alert("Entre ton pseudo et un code de partie !");
+      
+      document.getElementById("roomInfo").innerHTML = 
+        `<b>Tu as rejoint la partie :</b> ${roomId}`;
+
+      joinRoom();
+    }
+
+    function joinRoom() {
+      const playersRef = ref(db, `rooms/${roomId}/players`);
+      const newPlayer = push(playersRef);
+      set(newPlayer, username);
+      playerKey = newPlayer.key;
+
+      // Stocker les joueurs dans un tableau + afficher
+      onValue(playersRef, (snapshot) => {
+        const players = snapshot.val() || {};
+        playerList = Object.values(players);
+        document.getElementById("players").innerHTML = playerList.join("<br>");
+      });
+
+      // Chat en live
+      const chatRef = ref(db, `rooms/${roomId}/messages`);
+      onChildAdded(chatRef, (snapshot) => {
+        const msg = snapshot.val();
+        const chatBox = document.getElementById("chat");
+        chatBox.innerHTML += `<div><b>${msg.username}:</b> ${msg.message}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+
+      // Supprimer joueur à la déconnexion
+      window.addEventListener("beforeunload", () => {
+        if (playerKey) {
+          remove(ref(db, `rooms/${roomId}/players/${playerKey}`));
+        }
+      });
+    }
+
+    // Envoyer message
+    function sendMessage() {
+      const message = document.getElementById("message").value.trim();
+      if (!message || !username || !roomId) return;
+      const chatRef = ref(db, `rooms/${roomId}/messages`);
+      push(chatRef, { username, message });
+      document.getElementById("message").value = "";
+    }
+
+    // Debug : afficher la liste en console
+    function debugPlayers() {
+      console.log("Liste actuelle des joueurs :", playerList);
+    }
+
+    // Rendre accessible depuis HTML
+    window.createGame = createGame;
+    window.joinGame = joinGame;
+    window.sendMessage = sendMessage;
+    window.debugPlayers = debugPlayers;
+  </script>
+</body>
 </html>
