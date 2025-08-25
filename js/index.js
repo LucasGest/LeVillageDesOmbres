@@ -129,6 +129,12 @@ function endGame() {
 	}
 }
 
+// Envoi du message avec Entrée
+document.getElementById("message").addEventListener("keypress", (e) => {
+	if (e.key === "Enter") {
+		sendMessage();
+	}
+});
 
 // Rendre accessible depuis HTML
 window.createGame = createGame;
