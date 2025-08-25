@@ -2,38 +2,63 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Loup Garou de Thiercelieux</title>
-    <link rel="stylesheet" href="css/style.css">
-    
-		<script type="module" src="js/index.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Loup-Garou de Thiercelieux</title>
+		<link rel="stylesheet" href="css/style.css" />
+       		<script type="module" src="js/index.js"></script>
 	</head>
 	<body>
-		<h1>🐺 Jeu du Loup-Garou</h1>
+		<header>
+			<h1>🐺 Loup-Garou de Thiercelieux</h1>
+			<div id="roomInfo" class="room-info"></div>
+		</header>
 
-  <div id="roomInfo"></div>
+		<main class="container">
+			<!-- Colonne joueurs / contrôle partie -->
+			<section class="card">
+				<h2>Contrôle de la partie</h2>
+				<div class="row">
+					<input id="usernameInput" type="text" placeholder="Ton pseudo" />
+					<input
+						id="roomInput"
+						type="text"
+						placeholder="Code de la room (ex: LG-abc123)"
+					/>
+				</div>
+				<div class="row" style="margin-top: 8px">
+					<button onclick="createGame()" id="createBtn">Créer une partie</button>
+					<button onclick="joinGame()" id="joinBtn">Rejoindre</button>
+				</div>
+				<button id="endBtn" style="margin-top: 8px; background: #ef4444">
+					Terminer la partie
+				</button>
 
-  <div class="container">
-    <!-- Bloc Joueurs -->
-    <div class="card">
-      <h2>Joueurs</h2>
-      <input type="text" id="username" placeholder="Ton pseudo"><br>
-      <input type="text" id="roomId" placeholder="Code de la room"><br>
+				<h3 style="margin-top: 16px">Joueurs</h3>
+				<div id="players"></div>
+				<div class="muted" style="margin-top: 6px">
+					Les joueurs apparaissent ici en temps réel.
+				</div>
+			</section>
 
-      <button onclick="createGame()">Créer une partie</button>
-      <button onclick="joinGame()">Rejoindre une partie</button>
-      <button onclick="endGame()">Terminer la partie</button>
+			<!-- Colonne chat -->
+			<section class="card">
+				<h2>Chat</h2>
+				<div id="chatBox"></div>
+				<div class="row" style="margin-top: 8px">
+					<input
+						id="messageInput"
+						type="text"
+						placeholder="Écris un message et appuie sur Entrée"
+					/>
+					<button id="sendBtn">Envoyer</button>
+				</div>
+			</section>
 
-      <h3>Liste des joueurs :</h3>
-      <div id="players"></div>
-    </div>
-
-    <!-- Bloc Chat -->
-    <div class="card">
-      <h2>Chat</h2>
-      <div id="chat"></div>
-      <input type="text" id="message" placeholder="Écris un message...">
-      <button onclick="sendMessage()">Envoyer</button>
-    </div>
-  </div>
+			<!-- Rôles (facultatif, tu peux supprimer ce bloc si tu veux) -->
+			<section class="card" style="grid-column: 1 / -1">
+				<h2>Rôles (aperçu)</h2>
+				<div id="rolesGrid" class="roles-grid"></div>
+			</section>
+		</main>
 	</body>
 </html>
