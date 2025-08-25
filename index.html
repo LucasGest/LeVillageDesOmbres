@@ -5,12 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Loup-Garou de Thiercelieux</title>
 		<link rel="stylesheet" href="css/style.css" />
+<script type="module" src="js/index.js" defer></script>
 	</head>
 	<body>
 		<header>
-			<h1>🐺 Loup-Garou de Thiercelieux</h1>
-			<div id="roomInfo" class="room-info"></div>
-		</header>
+  <h1>🐺 Loup-Garou de Thiercelieux</h1>
+  <div id="roomInfo" class="room-info"></div>
+</header>
 
 		<main class="container">
 			<!-- Colonne joueurs / contrôle partie -->
@@ -23,7 +24,6 @@
 						type="text"
 						placeholder="Code de la room (ex: LG-abc123)"
 					/>
-					<p id="roomInfo"></p>
 				</div>
 				<div class="row" style="margin-top: 8px">
 					<button onclick="createGame()" id="createBtn">
@@ -73,6 +73,6 @@
 				<div id="rolesGrid" class="roles-grid"></div>
 			</section>
 		</main>
-    <script type="module" src="js/index.js"></script>
+		<script type="module" src="js/index.js"></script>
 	</body>
 </html>
