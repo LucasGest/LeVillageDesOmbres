@@ -103,11 +103,11 @@ function createGame() {
     alert("Entre ton pseudo avant de créer la partie !");
     return;
   }
-  joinGameAuto(name, roomId);
+  joinGame(name, roomId);
 }
 
 // Variante de joinGame pour l’auto-join
-function joinGameAuto(name, code) {
+function joinGame(name, code) {
   roomId = code;
   username = name;
 
