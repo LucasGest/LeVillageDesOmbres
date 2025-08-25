@@ -46,11 +46,55 @@ function createGame() {
 	if (!username) return alert("Choisis un pseudo !");
 
 	roomId = generateRoomCode();
-	document.getElementById(
-		"roomInfo"
-	).innerHTML = `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
+	isCreator = true; // ✅ celui qui crée est host
+	document.getElementById("startGame").style.display = "inline-block";
+
+	document.getElementById("roomInfo").innerHTML =
+		`<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
 
 	joinRoom();
+}
+
+// Démarrer la partie
+function startGame() {
+	if (!isCreator) return;
+	if (playerList.length < 8) {
+		alert("Il faut au moins 8 joueurs !");
+		return;
+	}
+
+	// Exemple de distribution simple
+	let rolesPool = [
+		"Loup Garou", "Loup Garou",
+		"Voyante", "Sorcière", "Cupidon",
+		"Villageois", "Villageois", "Villageois"
+	];
+
+	// Mélange les rôles
+	rolesPool = rolesPool.sort(() => Math.random() - 0.5);
+
+	// Distribue les rôles dans Firebase
+	const playersRef = ref(db, `rooms/${roomId}/players`);
+	set(playersRef, {}); // reset joueurs
+	playerList.forEach((player, index) => {
+		const playerKey = "p" + index; // tu peux garder ta logique push()
+		set(ref(db, `rooms/${roomId}/roles/${playerKey}`), rolesPool[index]);
+	});
+
+	// Lancer la phase jour
+	set(ref(db, `rooms/${roomId}/phase`), {
+		type: "day",
+		phaseEnd: Date.now() + 3 * 60 * 1000 // 3 minutes
+	});
+}
+
+// Récupère mon rôle
+function listenForRole() {
+	const roleRef = ref(db, `rooms/${roomId}/roles/${playerKey}`);
+	onValue(roleRef, (snapshot) => {
+		const role = snapshot.val();
+		if (role) alert("Ton rôle est : " + role);
+	});
 }
 
 // Rejoindre une partie existante
@@ -134,7 +178,8 @@ document.getElementById("message").addEventListener("keypress", (e) => {
 	if (e.key === "Enter") {
 		sendMessage();
 	}
-});
+});w
+
 
 // Rendre accessible depuis HTML
 window.createGame = createGame;
@@ -142,3 +187,5 @@ window.joinGame = joinGame;
 window.sendMessage = sendMessage;
 window.debugPlayers = debugPlayers;
 window.endGame = endGame;
+window.startGame = startGame;
+window.listenForRole = listenForRole;
