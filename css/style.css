@@ -1,83 +1,130 @@
+:root {
+	--text: #1f2937;
+	--muted: #6b7280;
+	--primary: #4caf50;
+	--primary-hover: #45a049;
+	--border: #e5e7eb;
+}
+* {
+	box-sizing: border-box;
+}
 body {
-	font-family: Arial, sans-serif;
-	background: #f4f4f9;
-	color: #333;
-	text-align: center;
+	font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+	background: var(--bg);
+	color: var(--text);
+	margin: 0;
+}
+header {
 	padding: 20px;
+	text-align: center;
+}
+header h1 {
+	margin: 0 0 6px;
+}
+header .room-info {
+	font-weight: 600;
 }
 
-h1 {
-	margin-bottom: 10px;
+.container {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 16px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+.card {
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	padding: 14px;
 }
 
+.row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+}
 input,
 button {
-	margin: 5px;
-	padding: 8px 12px;
-	border-radius: 6px;
-	border: 1px solid #ccc;
+	width: 100%;
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	font-size: 15px;
 }
-
 button {
-	background: #4caf50;
-	color: white;
-	border: none;
 	cursor: pointer;
+	background: var(--primary);
+	color: #fff;
+	border: none;
+	font-weight: 600;
 }
 button:hover {
-	background: #45a049;
-}
-
-#chat {
-	border: 1px solid #ccc;
-	background: white;
-	border-radius: 6px;
-	padding: 8px;
-	height: 150px;
-	overflow-y: auto;
-	margin: 10px 0;
-	text-align: left;
+	background: var(--primary-hover);
 }
 
 #players {
-	background: #fff;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	padding: 10px;
-	min-height: 50px;
-}
-
-/* --- GRID pour les rôles --- */
-.roles-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 15px;
-	margin-top: 20px;
-}
-
-.role-card {
-	background: white;
-	border: 1px solid #ddd;
+	min-height: 120px;
+	border: 1px dashed var(--border);
 	border-radius: 10px;
 	padding: 10px;
-	text-align: center;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	transition: transform 0.2s;
 }
-.role-card:hover {
-	transform: scale(1.05);
+#chatBox {
+	height: 320px;
+	overflow-y: auto;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	padding: 10px;
+	background: #fff;
 }
-
-.role-card img {
-	width: 80px;
+.msg {
 	margin-bottom: 8px;
 }
-
-.role-card h4 {
-	margin: 5px 0;
+.msg b {
+	color: #111827;
+}
+.muted {
+	color: var(--muted);
+	font-size: 13px;
 }
 
+/* Grid des rôles (facultatif) */
+.roles-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 12px;
+}
+.role-card {
+	background: #fff;
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	padding: 10px;
+	text-align: center;
+	transition: transform 0.15s ease;
+}
+.role-card:hover {
+	transform: translateY(-3px);
+}
+.role-card img {
+	width: 80px;
+	height: 80px;
+	object-fit: contain;
+	margin-bottom: 6px;
+}
+.role-card h4 {
+	margin: 6px 0 4px;
+	font-size: 15px;
+}
 .role-card p {
-	font-size: 0.9em;
-	color: #666;
+	margin: 0;
+	color: var(--muted);
+	font-size: 13px;
+}
+
+@media (max-width: 820px) {
+	.container {
+		grid-template-columns: 1fr;
+	}
 }
