@@ -48,11 +48,12 @@ function createGame() {
 	if (!username) return alert("Choisis un pseudo !");
 
 	roomId = generateRoomCode();
-	isCreator = true; 
+	isCreator = true;
 	document.getElementById("startGame").style.display = "inline-block";
 
-	document.getElementById("roomInfo").innerHTML =
-		`<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
+	document.getElementById(
+		"roomInfo"
+	).innerHTML = `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
 
 	joinRoom();
 }
@@ -67,48 +68,56 @@ function startGame() {
 
 	// Exemple de distribution simple
 	let rolesPool = [
-		"Loup Garou", "Loup Garou",
-		"Voyante", "Sorcière", "Cupidon",
-		"Villageois", "Villageois", "Villageois"
+		"Loup Garou",
+		"Loup Garou",
+		"Voyante",
+		"Sorcière",
+		"Cupidon",
+		"Villageois",
+		"Villageois",
+		"Chasseur",
 	];
 
 	// Mélange les rôles
 	rolesPool = rolesPool.sort(() => Math.random() - 0.5);
 
-    // Si plus de 8 joueurs → on complète avec des Villageois
+    console.log(rolesPool)
+
+	// Si plus de 8 joueurs → on complète avec des Villageois
 	while (rolesPool.length < playerList.length) {
 		rolesPool.push("Villageois");
 	}
 
-    // Mélange les rôles
-	rolesPool = rolesPool.sort(() => Math.random() - 0.5);
-
 	// Distribue les rôles dans Firebase en utilisant les clés des joueurs
 	const playersRef = ref(db, `rooms/${roomId}/players`);
-	onValue(playersRef, (snapshot) => {
-		const players = snapshot.val() || {};
-		let i = 0;
-		for (const key in players) {
-			set(ref(db, `rooms/${roomId}/roles/${key}`), rolesPool[i]);
-			i++;
-		}
-	}, { onlyOnce: true });
-
+	onValue(
+		playersRef,
+		(snapshot) => {
+			const players = snapshot.val() || {};
+			let i = 0;
+			for (const key in players) {
+				set(ref(db, `rooms/${roomId}/roles/${key}`), rolesPool[i].length);
+				i++;
+                console.log(rolesPool[i])
+			}
+		},
+		{ onlyOnce: true }
+	);
 
 	// Lancer la phase jour
 	set(ref(db, `rooms/${roomId}/phase`), {
 		type: "day",
-		phaseEnd: Date.now() + 3 * 60 * 1000 // 3 minutes
+		phaseEnd: Date.now() + 3 * 60 * 1000, // 3 minutes
 	});
 }
 
 // Récupère mon rôle
 function listenForRole() {
-  const roleRef = ref(db, `rooms/${roomId}/roles/${playerKey}`);
-  onValue(roleRef, (snapshot) => {
-  	const role = snapshot.val();
-  	if (role) alert("Ton rôle est : " + role);
-  });
+	const roleRef = ref(db, `rooms/${roomId}/roles/${playerKey}`);
+	onValue(roleRef, (snapshot) => {
+		const role = snapshot.val();
+		if (role) alert("Ton rôle est : " + role);
+	});
 }
 
 // Rejoindre une partie existante
@@ -172,11 +181,11 @@ function debugPlayers() {
 // Terminer la partie (supprimer la room)
 function endGame() {
 	if (!roomId) return alert("Aucune partie à supprimer !");
-	
+
 	if (confirm("Es-tu sûr de vouloir supprimer la partie ?")) {
 		remove(ref(db, `rooms/${roomId}`));
 		alert("La partie a été supprimée !");
-		
+
 		// Reset local
 		roomId = null;
 		playerKey = null;
@@ -193,7 +202,6 @@ document.getElementById("message").addEventListener("keypress", (e) => {
 		sendMessage();
 	}
 });
-
 
 // Rendre accessible depuis HTML
 window.createGame = createGame;
