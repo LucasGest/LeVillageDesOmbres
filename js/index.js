@@ -40,6 +40,8 @@ function generateRoomCode() {
 	return "LG-" + code;
 }
 
+let isCreator = false;
+
 // Créer une partie
 function createGame() {
 	username = document.getElementById("username").value.trim();
