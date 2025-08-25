@@ -111,8 +111,28 @@ function debugPlayers() {
 	console.log("Liste actuelle des joueurs :", playerList);
 }
 
+// Terminer la partie (supprimer la room)
+function endGame() {
+	if (!roomId) return alert("Aucune partie à supprimer !");
+	
+	if (confirm("Es-tu sûr de vouloir supprimer la partie ?")) {
+		remove(ref(db, `rooms/${roomId}`));
+		alert("La partie a été supprimée !");
+		
+		// Reset local
+		roomId = null;
+		playerKey = null;
+		playerList = [];
+		document.getElementById("players").innerHTML = "";
+		document.getElementById("chat").innerHTML = "";
+		document.getElementById("roomInfo").innerHTML = "";
+	}
+}
+
+
 // Rendre accessible depuis HTML
 window.createGame = createGame;
 window.joinGame = joinGame;
 window.sendMessage = sendMessage;
 window.debugPlayers = debugPlayers;
+window.endGame = endGame;
