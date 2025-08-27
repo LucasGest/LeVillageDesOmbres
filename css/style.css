@@ -1,5 +1,7 @@
 :root {
   --font: "Inter", sans-serif;
+  --blue-principal: rgb(45, 54, 194);
+  --second-color: rgb(214, 32, 247);
 }
 
 * {
@@ -56,6 +58,10 @@ header #contentImgh1 h1 {
   margin: 0;
 }
 
+header h1 a {
+  text-decoration: none;
+}
+
 header nav ul {
   display: flex;
   list-style: none;
@@ -65,7 +71,7 @@ header nav ul {
 }
 
 header nav ul li:not(:nth-child(2)):not(:nth-child(3)) a {
-  background: rgb(45, 54, 194);
+  background: var(--blue-principal);
   padding: 10px 10px;
 }
 
@@ -102,7 +108,7 @@ nav ul li a i {
 }
 
 #primaryScreen h2 .color {
-  color: rgb(45, 54, 194);
+  color: var(--second-color);
 }
 
 #primaryScreen ul {
@@ -123,11 +129,7 @@ nav ul li a i {
 /************************************************************ SECONDSCREEN ************************************************************/
 
 #secondScreen {
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.8),
-    rgba(12, 12, 12, 0.6)
-  );
+  background: rgba(0, 0, 0, 0.35);
   padding: 50px 50px;
   text-align: center;
 }
@@ -146,11 +148,19 @@ nav ul li a i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  background: rgba(45, 54, 194, 0.4);
+  background: rgba(45, 54, 194, 0.5);
   width: 50vh;
   height: 35vh;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+#secondScreen #content-secondScreen .contentRules:hover,
+#secondScreen #content-secondScreen .contentRoles:hover,
+#secondScreen #content-secondScreen .contentTecnic:hover {
+  border: solid 1px white;
+  transform: scale(1.1);
 }
 
 #secondScreen #content-secondScreen p {
@@ -159,7 +169,7 @@ nav ul li a i {
 
 #secondScreen #content-secondScreen i {
   font-size: 50px;
-  color: rgb(45, 54, 194);
+  color: var(--second-color);
 }
 
 #secondScreen #content-secondScreen h4 {
@@ -186,6 +196,10 @@ nav ul li a i {
 
 footer {
   background-color: black;
+}
+
+footer h4 a {
+  text-decoration: none;
 }
 
 footer #footerImgText {
