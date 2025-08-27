@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Chat Loup Garou</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="icon" type="image/x-icon" href="img/site/logo.png" />
+
+		<!-- FONT -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div id="presentationRoles">
+			<h2>Présentation des rôles :</h2>
+
+			<h3>Camp des Ombres :</h3>
+
+			<div id="containerCard-Ombre">
+				<div class="content-ombre">
+					<img src="img/carte/ombre.png" alt="Carte de l'iombre nocturne" />
+					<div class="content">
+						<h3>Ombre Nocturnes :</h3>
+						<p>
+							Chaque nuit, les Ombres se réveillent et désignent une victime.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<h3 id="titleV">Camp des Habitants :</h3>
+
+			<div id="containerCard-Villageois">
+				<div class="content-villageois">
+					<img src="img/carte/Villageois.png" alt="Carte du villageois" />
+					<div class="content">
+						<h3>Villageois :</h3>
+						<p>Aucun pouvoir, mais participe aux débats et au vote.</p>
+					</div>
+				</div>
+
+				<div class="content-enchanteresse">
+					<img
+						src="img/carte/enchanteresse.png"
+						alt="Carte de l'Enchanteresse"
+					/>
+					<div class="content">
+						<h3>Enchanteresse :</h3>
+						<p>
+							Dispose de 2 potions : Potion de bénédiction : sauve une victime
+							de la nuit (1 seule fois). Potion de nécrose : élimine un joueur
+							de son choix (1 seule fois).
+						</p>
+					</div>
+				</div>
+
+				<div class="content-liantdesames">
+					<img
+						src="img/carte/liant des ames.png"
+						alt="Carte du Liant des Ames"
+					/>
+					<div class="content">
+						<h3>Liant des Âmes : <br /></h3>
+						<p>
+							La première nuit, il choisit deux joueurs. <br />
+							➡️ Ces deux joueurs deviennent âmes liées : si l’un meurt, l’autre
+							meurt immédiatement de chagrin.
+						</p>
+						<p>
+							⚠️ Si les deux amoureux appartiennent à des camps différents, ils
+							deviennent une faction secrète : leur but est d’être les deux
+							derniers survivants, même contre leurs propres camps.
+						</p>
+					</div>
+				</div>
+
+				<div class="content-eclaireuse">
+					<img src="img/carte/eclaireuse.png" alt="Carte de L'Eclaireuse" />
+					<div class="content">
+						<h3>Éclaireuse :</h3>
+						<p>
+							Peut espionner la nuit (elle ouvre les yeux discrètement pendant
+							que les Ombres agissent). <br />
+							➡️ Mais si le Conteur la surprend à trop regarder, elle risque
+							d’être démasquée par les Ombres !
+						</p>
+					</div>
+				</div>
+
+				<div class="content-amechasseresse">
+					<img
+						src="img/carte/amevengeresse.png"
+						alt="Carte de L'Ame vengeresse"
+					/>
+					<div class="content">
+						<h3>Âme vengeresse :</h3>
+						<p>
+							Si elle est éliminée (par vote ou par attaque nocturne), elle
+							peut, dans un dernier souffle, désigner un joueur à entraîner dans
+							la mort avec elle.
+						</p>
+					</div>
+				</div>
+
+				<div class="content-oracle">
+					<img src="img/carte/oracle.png" alt="Carte de L'oracle" />
+					<div class="content">
+						<h3>Oracle :</h3>
+						<p>Chaque nuit, découvre le rôle d’un joueur.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
