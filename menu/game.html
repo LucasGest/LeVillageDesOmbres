@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="containerInfoSite">
+				<div id="pseudo">
+					<label for="">Pseudo : </label>
+					<input type="text" id="username" placeholder="Ton pseudo" />
+				</div>
+
+				<div id="codeSalon">
+					<label for="">Code du salon : </label>
+					<input
+						type="text"
+						id="roomInput"
+						placeholder="Code de partie"
+						value="LG-"
+					/>
+
+					<button onclick="joinGame()">Rejoindre</button>
+					<button onclick="createGame()">Créer une partie</button>
+
+					<button id="startGame" style="display: none" onclick="startGame()">
+						🚀 Démarrer la partie
+					</button>
+				</div>
+			</div>
+
+			<div id="roomInfo"></div>
+
+			<div
+				id="myRole"
+				style="margin-top: 10px; font-weight: bold;"
+			></div>
+
+			<div id="containerInteractionGame">
+				<h3>👥 Joueurs connectés</h3>
+				<div id="players"></div>
+
+				<h3>💬 Chat</h3>
+				<div id="chat"></div>
+				<input type="text" id="message" placeholder="Écris ton message" />
+				<button onclick="sendMessage()">Envoyer</button>
+				<button onclick="debugPlayers()">📋 Voir joueurs en console</button>
+			</div>
+
+			<button id="endGameBtn" onclick="endGame()">❌ Terminer la partie</button>
+		</main>
+		<script type="module" src="../js/index.js"></script>
+</body>
+</html>
