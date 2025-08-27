@@ -1,215 +1,279 @@
 :root {
-	--font: "Inter", sans-serif;
+  --font: "Inter", sans-serif;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	color: white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
 }
 
 body {
-	font-family: var(--font);
-	overflow-x: hidden;
-	background: #2a3540;
-	background: linear-gradient(
-		304deg,
-		rgba(42, 53, 64, 1) 0%,
-		rgba(7, 10, 38, 1) 50%,
-		rgba(14, 19, 87, 1) 100%
-	);
+  font-family: var(--font);
+  overflow-x: hidden;
+  background: #2a3540;
+  background: linear-gradient(
+    304deg,
+    rgba(42, 53, 64, 1) 0%,
+    rgba(7, 10, 38, 1) 50%,
+    rgba(14, 19, 87, 1) 100%
+  );
 }
 
 main {
-	padding: 0px 20px;
+  padding: 0px 20px;
 }
 
 /*************************************************************** HEADER ***************************************************************/
 
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 30px;
-	background: linear-gradient(
-		to right,
-		rgba(0, 0, 0, 0.8),
-		rgba(50, 50, 50, 0.5)
-	);
-	color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8),
+    rgba(50, 50, 50, 0.5)
+  );
+  color: white;
 }
 
 header #contentImgh1 {
-	display: flex;
-	align-items: center;
-	gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 header #contentImgh1 img {
-	height: 50px;
-	width: auto;
+  height: 50px;
+  width: auto;
 }
 
 header #contentImgh1 h1 {
-	font-size: 1.8rem;
-	margin: 0;
+  font-size: 1.8rem;
+  margin: 0;
 }
 
 header nav ul {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	gap: 25px;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 25px;
 }
 
 header nav ul li:not(:nth-child(2)):not(:nth-child(3)) a {
-	background: rgb(45, 54, 194);
-	padding: 10px 10px;
+  background: rgb(45, 54, 194);
+  padding: 10px 10px;
 }
 
 header nav ul li a {
-	text-decoration: none;
-	display: flex;
-	color: white;
-	font-weight: 500;
-	transition: color 0.2s;
-	gap: 8px;
-	padding: 10px 10px;
-	border-radius: 10px;
-	box-shadow: 0px 0px 1em black;
+  text-decoration: none;
+  display: flex;
+  color: white;
+  font-weight: 500;
+  transition: color 0.2s;
+  gap: 8px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 1em black;
 }
 
 nav ul li a i {
-	font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 /*********************************************************** Primary Screen ***********************************************************/
 
 #primaryScreen {
-	height: 100vh;
-	text-align: center;
+  height: 100vh;
+  text-align: center;
 }
 
 #primaryScreen img {
-	width: 20%;
+  width: 20%;
 }
 
 #primaryScreen h2 {
-	font-size: 60px;
-	margin: 0px 0px 30px;
+  font-size: 60px;
+  margin: 0px 0px 30px;
 }
 
 #primaryScreen h2 .color {
-	color: rgb(45, 54, 194);
+  color: rgb(45, 54, 194);
 }
 
 #primaryScreen ul {
-	margin: 40px 0px 20px;
+  margin: 40px 0px 20px;
 }
 
 #primaryScreen ul li {
-	display: inline;
-	padding: 20px 20px;
+  display: inline;
+  padding: 20px 20px;
 }
 
 #primaryScreen ul li a {
-	text-decoration: none;
-	border: solid 1px white;
-	padding: 10px 20px;
+  text-decoration: none;
+  border: solid 1px white;
+  padding: 10px 20px;
 }
 
 /************************************************************ SECONDSCREEN ************************************************************/
 
 #secondScreen {
-	background: linear-gradient(
-		to right,
-		rgba(0, 0, 0, 0.8),
-		rgba(12, 12, 12, 0.6)
-	);
-	padding: 50px 50px;
-	text-align: center;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8),
+    rgba(12, 12, 12, 0.6)
+  );
+  padding: 50px 50px;
+  text-align: center;
 }
 
 #secondScreen #content-secondScreen {
-	text-align: center;
-	display: flex;
-	justify-content: space-evenly;
-	margin: 50px 0px;
-	gap: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 50px 0px;
+  gap: 10px;
 }
 
 #secondScreen #content-secondScreen .contentRules,
 #secondScreen #content-secondScreen .contentRoles,
 #secondScreen #content-secondScreen .contentTecnic {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	border: 1px solid white;
-	border-radius: 10px;
-	background: rgba(45, 54, 194, 0.4);
-	width: 50vh;
-	height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 10px;
+  background: rgba(45, 54, 194, 0.4);
+  width: 50vh;
+  height: 35vh;
 }
 
-#secondScreen #content-secondScreen p{
-	font-size: 16px;
+#secondScreen #content-secondScreen p {
+  font-size: 16px;
 }
 
 #secondScreen #content-secondScreen i {
-	font-size: 50px;
-	color: rgb(45, 54, 194);
+  font-size: 50px;
+  color: rgb(45, 54, 194);
 }
 
 #secondScreen #content-secondScreen h4 {
-	font-size: 28px;
-	margin: 10px 0px;
+  font-size: 28px;
+  margin: 10px 0px;
 }
 
-#secondScreen h3{
-	font-size: 35px;
-	padding: 0px 0px 15px;
+#secondScreen h3 {
+  font-size: 35px;
+  padding: 0px 0px 15px;
 }
 
-#secondScreen p{
-	font-size: 24px;
+#secondScreen p {
+  font-size: 24px;
 }
 
 /*********************************************************** DOUWANTTOPLAY ***********************************************************/
 
 #doUWantToPlay {
-	margin: 50px;
+  margin: 50px;
 }
 
 /************************************************************** FOOTER **************************************************************/
 
-footer{
-		background-color: black;
+footer {
+  background-color: black;
 }
 
-footer #footerImgText{
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	color: white;
-	margin: 0px;
-	padding: 10px 30px;
+footer #footerImgText {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  margin: 0px;
+  padding: 10px 30px;
 }
 
 footer #footerImgText img {
-	height: 50px;
-	width: auto;
+  height: 50px;
+  width: auto;
 }
 
-footer #gridUtilities{
-	text-align: center;
+footer #gridUtilities {
+  text-align: center;
 }
 
-#tdr{
-	padding: 20px;
-	background: black;
-	text-align: center;
+/************************************************************** MENTIONS LÉGALES + CGU **************************************************************/
+
+#mentionLegale,
+#cgu {
+  width: 90%;
+  margin: 50px auto;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 1em rgba(0, 0, 0, 0.7);
+}
+
+#mentionLegale h2,
+#cgu h2 {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 40px;
+  color: rgb(45, 54, 194);
+}
+
+#mentionLegale h3,
+#cgu h3 {
+  font-size: 24px;
+  margin: 30px 0 15px;
+  color: rgb(173, 173, 255);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+}
+
+#mentionLegale p,
+#cgu p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #ddd;
+}
+
+#mentionLegale ul,
+#cgu ul {
+  margin: 15px 0 25px 30px;
+}
+
+#mentionLegale ul li,
+#cgu ul li {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #ccc;
+  list-style: disc;
+}
+
+#mentionLegale a,
+#cgu a {
+  color: rgb(92, 119, 255);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#mentionLegale a:hover,
+#cgu a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+#tdr {
+  padding: 20px;
+  background: black;
+  text-align: center;
 }
 
 #presentationRules,
@@ -218,93 +282,93 @@ footer #gridUtilities{
 #myRole,
 #containerInteractionGame,
 #presentationRoles {
-	margin: 50px auto;
-	width: 90%;
+  margin: 50px auto;
+  width: 90%;
 }
 
 #presentationRoles img:not(.content-ombre img) {
-	width: 50%;
+  width: 50%;
 }
 
 /* A modifier quand il y aura d'autres cartes dans le jeu au niveau des tailles des images  */
 
 .content-ombre img {
-	width: 17%;
+  width: 17%;
 }
 
 #rules {
-	width: 100%;
+  width: 100%;
 }
 
 #containerCard-Villageois {
-	margin: 30px 0px;
+  margin: 30px 0px;
 }
 
 #titleV {
-	margin: 30px 0px 0px;
+  margin: 30px 0px 0px;
 }
 
 #presentationRules h2,
 #presentationRoles h2 {
-	text-align: center;
-	padding: 0px 0px 50px;
+  text-align: center;
+  padding: 0px 0px 50px;
 }
 
 #rules li,
 #card-villageois li {
-	list-style: none;
+  list-style: none;
 }
 
 #containerCard-Villageois {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 #doUWantToPlay p {
-	text-align: center;
+  text-align: center;
 }
 
 #doUWantToPlay p a {
-	text-decoration: none;
-	background: white;
-	color: black;
-	padding: 10px 20px;
+  text-decoration: none;
+  background: white;
+  color: black;
+  padding: 10px 20px;
 }
 
 #chat {
-	border: 1px solid #ccc;
-	padding: 10px;
-	height: 300px;
-	overflow-y: auto;
-	margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
 
 #players {
-	margin: 10px 0;
-	padding: 10px;
+  margin: 10px 0;
+  padding: 10px;
 }
 
 input {
-	padding: 8px;
-	margin: 5px 0;
-	background-color: transparent;
-	outline: transparent;
-	border-radius: 3px;
-	border-bottom: solid 1px white;
-	border-top: none;
-	border-left: none;
-	border-right: none;
+  padding: 8px;
+  margin: 5px 0;
+  background-color: transparent;
+  outline: transparent;
+  border-radius: 3px;
+  border-bottom: solid 1px white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 
 button {
-	background-color: transparent;
-	border: solid 0.5px white;
-	padding: 10px 30px;
-	cursor: pointer;
+  background-color: transparent;
+  border: solid 0.5px white;
+  padding: 10px 30px;
+  cursor: pointer;
 }
 
 #roomInfo {
-	margin-top: 15px;
-	padding: 10px;
-	border: 1px dashed white;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px dashed white;
 }
