@@ -3,36 +3,118 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>Chat Loup Garou</title>
-		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="icon" type="image/x-icon" href="img/site/logo.png" />
+
+		<!-- FONT -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
 	</head>
 	<body>
-		<h1>🎲 Loup Garou - Chat & Joueurs</h1>
+		<header>
+			<div id="contentImgh1">
+				<img src="img/site/logo_transparent.png" alt="logo" />
+				<h1>Les Ombres du Village</h1>
+			</div>
 
-		<div>
-			<label>Pseudo :</label>
-			<input type="text" id="username" placeholder="Ton pseudo" />
-			<button onclick="createGame()">Créer une partie</button>
-			<input type="text" id="roomInput" placeholder="Code de partie" value="LG-" />
-			<button onclick="joinGame()">Rejoindre</button>
-      		<button id="endGameBtn" onclick="endGame()">❌ Terminer la partie</button>
+			<nav>
+				<ul>
+					<li>
+						<a href="accueil.html"><i class="fa-solid fa-house"></i>Accueil</a>
+					</li>
+					<li>
+						<a href="regles.html"><i class="fa-solid fa-book"></i>Règles</a>
+					</li>
+					<li>
+						<a href="roles.html"><i class="fa-solid fa-mask"></i>Rôles</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-      <button id="startGame" style="display:none;" onclick="startGame()">🚀 Démarrer la partie</button>
+		<div id="primaryScreen">
+			<img src="img/site/logo_transparent.png" alt="Logo" />
+			<h2>
+				Les Ombres
+				<div class="color">du Village</div>
+			</h2>
+			<p>
+				Entrez dans le Village des Ombres, un lieu où la lune éclaire les
+				complots, <br />
+				et où nul ne sait qui sera la prochaine victime.
+			</p>
 
+			<ul>
+				<li><a href="regles.html">Découvrir les règles</a></li>
+				<li><a href="roles.html">Découvrir les rôles</a></li>
+			</ul>
 		</div>
 
-		<div id="roomInfo"></div>
+		<div id="secondScreen">
+			<h3>
+				Entrez dans l’univers <br />
+				des Ombres
+			</h3>
+			<p>
+				Tout ce dont vous avez besoin pour percer les mystères et survivre à la
+				nuit
+			</p>
 
-		<h3>👥 Joueurs connectés</h3>
-		<div id="players"></div>
+			<div id="content-secondScreen">
+				<div class="contentRules">
+					<i class="fa-solid fa-scroll"></i>
+					<h4>Règles Complètes</h4>
+					<p>
+						Découvrez toutes les règles <br />
+						officielles du jeu
+					</p>
+				</div>
 
-		<div id="myRole" style="margin-top:10px; font-weight:bold; color:darkred;"></div>
+				<div class="contentRoles">
+					<i class="fa-solid fa-masks-theater"></i>
+					<h4>Tous les Rôles</h4>
+					<p>
+						Explorez chaque rôle avec <br />
+						ses pouvoirs uniques
+					</p>
+				</div>
 
-		<h3>💬 Chat</h3>
-		<div id="chat"></div>
-		<input type="text" id="message" placeholder="Écris ton message" />
-		<button onclick="sendMessage()">Envoyer</button>
-		<button onclick="debugPlayers()">📋 Voir joueurs en console</button>
+				<div class="contentTecnic">
+					<i class="fa-solid fa-chess-knight"></i>
+					<h4>Stratégies</h4>
+					<p>En cours de construction</p>
+				</div>
+			</div>
+		</div>
 
-		<script type="module" src="js/index.js"></script>
+		<div id="doUWantToPlay">
+			<p><a href="menu/game.html">Vous voulez Jouer ?</a></p>
+		</div>
+
+		<footer>
+			<div id="footerImgText">
+				<img src="img/site/logo_transparent.png" alt="logo" />
+				<h4>Les Ombres du Village</h4>
+			</div>
+
+			<div id="gridUtilities">
+				<ul>
+					<li><a href="mentionslegeales.html">Mentions Legales</a></li>
+					<li><a href="cgu.html">CGU</a></li>
+				</ul>
+			</div>
+		</footer>
+
+		<p id="tdr">
+			© Les Ombres du Village - Tous droits réservés, no copyright.
+		</p>
 	</body>
 </html>
