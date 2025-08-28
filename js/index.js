@@ -45,23 +45,33 @@ function generateRoomCode() {
 // Créer une partie
 // --------------------
 function createGame() {
-	username = document.getElementById("username").value.trim();
-	if (!username) return alert("Choisis un pseudo !");
+    username = document.getElementById("username").value.trim();
+    if (!username) return alert("Choisis un pseudo !");
 
-	roomId = generateRoomCode();
-	isCreator = true;
+    roomId = generateRoomCode();
+    isCreator = true;
 
-	// Met le code dans l’input
-	const roomInput = document.getElementById("roomInput");
-	if (roomInput) roomInput.value = roomId;
+    // On prépare la structure Firebase de la room
+    const roomData = {
+        createdAt: Date.now(),
+        creator: username,
+        players: {
+            [username]: { username, joinedAt: Date.now() }
+        },
+        messages: {}
+    };
 
-	// On rejoint la room direct
-	joinRoom(roomId, username);
-
-	// Puis on redirige
-	window.location.href = `menu/game.html?room=${roomId}&username=${encodeURIComponent(username)}`;
+    // Sauvegarde dans Firebase
+    set(ref(db, `rooms/${roomId}`), roomData)
+        .then(() => {
+            console.log("✅ Partie créée dans Firebase :", roomId);
+            // Redirection vers la page de jeu
+            window.location.href = `menu/game.html?room=${roomId}&username=${encodeURIComponent(username)}`;
+        })
+        .catch((error) => {
+            console.error("❌ Erreur création Firebase :", error);
+        });
 }
-
 // --------------------
 // Rejoindre une partie
 // --------------------
