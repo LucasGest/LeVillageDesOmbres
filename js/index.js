@@ -204,14 +204,6 @@ function endGame() {
 		document.getElementById("roomInfo").innerHTML = "";
 	}
 }
-
-// Envoi du message avec Entrée
-document.getElementById("message").addEventListener("keypress", (e) => {
-	if (e.key === "Enter") {
-		sendMessage();
-	}
-});
-
 // Rendre accessible depuis HTML
 window.createGame = createGame;
 window.joinGame = joinGame;
