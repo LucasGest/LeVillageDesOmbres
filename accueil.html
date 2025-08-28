@@ -96,7 +96,27 @@
 		</div>
 
 		<div id="doUWantToPlay">
-			<p><a href="menu/game.html">Vous voulez Jouer ?</a></p>
+			<p>Vous voulez Jouer ?</p>
+
+			<div id="containerInfoSite">
+				<div id="pseudo">
+					<label for="">Pseudo : </label>
+					<input type="text" id="username" placeholder="Ton pseudo" />
+				</div>
+
+				<div id="codeSalon">
+					<label for="">Code du salon : </label>
+					<input
+						type="text"
+						id="roomInput"
+						placeholder="Code de partie"
+						value="LG-"
+					/>
+
+					<button onclick="joinGame()">Rejoindre</button>
+					<button onclick="createGame()">Créer une partie</button>
+				</div>
+			</div>
 		</div>
 
 		<footer>
