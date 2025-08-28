@@ -49,7 +49,7 @@ function createGame() {
 
 	roomId = generateRoomCode();
 	isCreator = true;
-	document.getElementById("startGame").style.display = "inline-block";
+	//document.getElementById("startGame").style.display = "inline-block";
 
 	document.getElementById(
 		"roomInfo"
