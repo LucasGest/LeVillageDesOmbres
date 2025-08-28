@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-	<header>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Chat Loup Garou</title>
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="icon" type="image/x-icon" href="../img/site/logo.png" />
+
+		<!-- FONT -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<header>
 			<div id="contentImgh1">
 				<img src="../img/site/logo_transparent.png" alt="logo" />
 				<h1>Les Ombres du Village</h1>
@@ -29,51 +41,49 @@
 				</ul>
 			</nav>
 		</header>
-    <div id="containerInfoSite">
-				<div id="pseudo">
-					<label for="">Pseudo : </label>
-					<input type="text" id="username" placeholder="Ton pseudo" />
-				</div>
 
-				<div id="codeSalon">
-					<label for="">Code du salon : </label>
-					<input
-						type="text"
-						id="roomInput"
-						placeholder="Code de partie"
-						value="LG-"
-					/>
+		<div id="gamePrimaryScreen">
+			<i class="fa-solid fa-comment"></i>
+			<h2>Salle de Jeu</h2>
 
-					<button onclick="joinGame()">Rejoindre</button>
-					<button onclick="createGame()">Créer une partie</button>
+			<ul>
+				<li id="wait"><i class="fa-solid fa-people-group"></i>En attente</li>
+				<li>Statut : En attente ...</li>
+			</ul>
+		</div>
 
-					<button id="startGame" style="display: none" onclick="startGame()">
-						🚀 Démarrer la partie
-					</button>
-				</div>
-			</div>
-
-			<div id="roomInfo"></div>
-
-			<div
-				id="myRole"
-				style="margin-top: 10px; font-weight: bold;"
-			></div>
-
+		<div id="containerChat">
 			<div id="containerInteractionGame">
-				<h3>👥 Joueurs connectés</h3>
-				<div id="players"></div>
-
 				<h3>💬 Chat</h3>
 				<div id="chat"></div>
 				<input type="text" id="message" placeholder="Écris ton message" />
 				<button onclick="sendMessage()">Envoyer</button>
-				<button onclick="debugPlayers()">📋 Voir joueurs en console</button>
 			</div>
 
-			<button id="endGameBtn" onclick="endGame()">❌ Terminer la partie</button>
-		</main>
-		<script type="module" src="../js/index.js"></script>
-</body>
+			<div>
+				<section id="actions">
+					<h3>Contrôles</h3>
+					<button id="startGame" style="display: block" onclick="startGame()">
+						🚀 Lancer la partie
+					</button>
+					<button id="endGameBtn" style="display: block" onclick="endGame()">
+						❌ Terminer
+					</button>
+				</section>
 
+				<section id="roomDetails">
+					<h2>Informations sur la partie</h2>
+					<p>Code de la salle <span id="roomCode"></span></p>
+					<p>Ton pseudo : <span id="playerName"></span></p>
+					<p>Ton rôle :<div id="myRole" style="margin-top: 10px; font-weight: bold;"></div></p>
+
+					<h3>Joueurs connectés :</h3>
+					<ul id="playerList"></ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="../js/index.js" type="module"></script>
+		<script src="../js/game.js" type="module"></script>
+	</body>
 </html>
