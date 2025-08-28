@@ -52,7 +52,7 @@ function createGame() {
 	//document.getElementById("startGame").style.display = "inline-block";
 
 	document.getElementById(
-		"roomInfo"
+		"roomCode"
 	).innerHTML = `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
 
 	joinRoom();
