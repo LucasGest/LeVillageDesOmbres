@@ -51,9 +51,9 @@ function createGame() {
 	isCreator = true;
 	//document.getElementById("startGame").style.display = "inline-block";
 
-	document.getElementById(
-		"roomCode"
-	).innerHTML = `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
+	// document.getElementById(
+	// 	"roomCode"
+	// ).innerHTML = `<b>Code de ta partie :</b> ${roomId}<br>Partage-le avec tes amis !`;
 
 	joinRoom();
 }
