@@ -60,7 +60,7 @@
 				<button onclick="sendMessage()">Envoyer</button>
 			</div>
 
-			<div>
+			<div id="information">
 				<section id="actions">
 					<h3>Contrôles</h3>
 					<button id="startGame" style="display: block" onclick="startGame()">
@@ -73,10 +73,10 @@
 
 				<section id="roomDetails">
 					<h2>Informations sur la partie</h2>
-					<p>Code de la salle <span id="roomCode"></span></p>
-					<p>Ton pseudo : <span id="players"></span></p>
-					<p>Ton rôle :<div id="myRole" style="margin-top: 10px; font-weight: bold;"></div></p>
-
+					<p>Code de la salle :</p> <div id="roomCode"></div>
+					<p>Ton pseudo : </p> <div id="username"></div>
+					<p>Ton rôle :</p>
+					<div id="myRole" style="margin-top: 10px; font-weight: bold"></div>
 					<h3>Joueurs connectés :</h3>
 					<ul id="playerList"></ul>
 				</section>
@@ -87,4 +87,3 @@
 		<script src="../js/game.js" type="module"></script>
 	</body>
 </html>
-
