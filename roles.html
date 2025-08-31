@@ -1,119 +1,111 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Chat Loup Garou</title>
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="icon" type="image/x-icon" href="img/site/logo.png" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat Loup Garou</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/x-icon" href="img/site/logo.png" />
 
-		<!-- FONT -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-			rel="stylesheet"
-		/>
-	</head>
-	<body>
-		<div id="presentationRoles">
-			<h2>Présentation des rôles :</h2>
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body>
+    <header>
+      <div id="contentImgh1">
+        <img src="img/site/logo_transparent.png" alt="logo" />
+        <h1>Les Ombres du Village</h1>
+      </div>
 
-			<h3>Camp des Ombres :</h3>
+      <nav>
+        <ul>
+          <li>
+            <a href="accueil.html"><i class="fa-solid fa-house"></i>Accueil</a>
+          </li>
+          <li>
+            <a href="regles.html"><i class="fa-solid fa-book"></i>Règles</a>
+          </li>
+          <li>
+            <a href="roles.html"><i class="fa-solid fa-mask"></i>Rôles</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-			<div id="containerCard-Ombre">
-				<div class="content-ombre">
-					<img src="img/carte/ombre.png" alt="Carte de l'iombre nocturne" />
-					<div class="content">
-						<h3>Ombre Nocturnes :</h3>
-						<p>
-							Chaque nuit, les Ombres se réveillent et désignent une victime.
-						</p>
-					</div>
-				</div>
-			</div>
+    <div class="glide" id="slider">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <img src="img/carte/amevengeresse.png" alt="img1" />
+            <a href="" data-card="amevengeresse">L'âme Vengeresse</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/eclaireuse.png" alt="img2" />
+            <a href="" data-card="eclaireuse">L'éclaireuse</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/enchanteresse.png" alt="img3" />
+            <a href="" data-card="enchanteresse">L'enchanteresse</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/eros.png" alt="img4" />
+            <a href="" data-card="eros">Le liant des âmes</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/ombre.png" alt="img5" />
+            <a href="" data-card="ombre">L'ombre</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/villageois.png" alt="img6" />
+            <a href="" data-card="villageois">Le villageois</a>
+          </li>
+          <li class="glide__slide">
+            <img src="img/carte/oracle.png" alt="img7" />
+            <a href="" data-card="oracle">L'oracle</a>
+          </li>
+        </ul>
+      </div>
 
-			<h3 id="titleV">Camp des Habitants :</h3>
+      <!-- flèches -->
+      <div class="glide__arrows" data-glide-el="controls">
+        <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+          ◀
+        </button>
+        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+          ▶
+        </button>
+      </div>
 
-			<div id="containerCard-Villageois">
-				<div class="content-villageois">
-					<img src="img/carte/Villageois.png" alt="Carte du villageois" />
-					<div class="content">
-						<h3>Villageois :</h3>
-						<p>Aucun pouvoir, mais participe aux débats et au vote.</p>
-					</div>
-				</div>
+      <!-- pagination -->
+      <div class="glide__bullets" data-glide-el="controls[nav]">
+        <button class="glide__bullet" data-glide-dir="=0"></button>
+        <button class="glide__bullet" data-glide-dir="=1"></button>
+        <button class="glide__bullet" data-glide-dir="=2"></button>
+        <button class="glide__bullet" data-glide-dir="=3"></button>
+        <button class="glide__bullet" data-glide-dir="=4"></button>
+        <button class="glide__bullet" data-glide-dir="=5"></button>
+        <button class="glide__bullet" data-glide-dir="=6"></button>
+        <button class="glide__bullet" data-glide-dir="=7"></button>
+        <button class="glide__bullet" data-glide-dir="=8"></button>
+        <button class="glide__bullet" data-glide-dir="=9"></button>
+      </div>
+    </div>
 
-				<div class="content-enchanteresse">
-					<img
-						src="img/carte/enchanteresse.png"
-						alt="Carte de l'Enchanteresse"
-					/>
-					<div class="content">
-						<h3>Enchanteresse :</h3>
-						<p>
-							Dispose de 2 potions : Potion de bénédiction : sauve une victime
-							de la nuit (1 seule fois). Potion de nécrose : élimine un joueur
-							de son choix (1 seule fois).
-						</p>
-					</div>
-				</div>
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content">
+        <span class="close">&times;</span>
+        <h2 id="lightbox-title"></h2>
+        <p id="lightbox-text"></p>
+      </div>
+    </div>
 
-				<div class="content-liantdesames">
-					<img
-						src="img/carte/liant des ames.png"
-						alt="Carte du Liant des Ames"
-					/>
-					<div class="content">
-						<h3>Liant des Âmes : <br /></h3>
-						<p>
-							La première nuit, il choisit deux joueurs. <br />
-							➡️ Ces deux joueurs deviennent âmes liées : si l’un meurt, l’autre
-							meurt immédiatement de chagrin.
-						</p>
-						<p>
-							⚠️ Si les deux amoureux appartiennent à des camps différents, ils
-							deviennent une faction secrète : leur but est d’être les deux
-							derniers survivants, même contre leurs propres camps.
-						</p>
-					</div>
-				</div>
-
-				<div class="content-eclaireuse">
-					<img src="img/carte/eclaireuse.png" alt="Carte de L'Eclaireuse" />
-					<div class="content">
-						<h3>Éclaireuse :</h3>
-						<p>
-							Peut espionner la nuit (elle ouvre les yeux discrètement pendant
-							que les Ombres agissent). <br />
-							➡️ Mais si le Conteur la surprend à trop regarder, elle risque
-							d’être démasquée par les Ombres !
-						</p>
-					</div>
-				</div>
-
-				<div class="content-amechasseresse">
-					<img
-						src="img/carte/amevengeresse.png"
-						alt="Carte de L'Ame vengeresse"
-					/>
-					<div class="content">
-						<h3>Âme vengeresse :</h3>
-						<p>
-							Si elle est éliminée (par vote ou par attaque nocturne), elle
-							peut, dans un dernier souffle, désigner un joueur à entraîner dans
-							la mort avec elle.
-						</p>
-					</div>
-				</div>
-
-				<div class="content-oracle">
-					<img src="img/carte/oracle.png" alt="Carte de L'oracle" />
-					<div class="content">
-						<h3>Oracle :</h3>
-						<p>Chaque nuit, découvre le rôle d’un joueur.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script src="js/slide.js"></script>
+  </body>
 </html>
