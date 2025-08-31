@@ -24,6 +24,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const displayRoomId = document.getElementById("roomCode");
 
 let roomId = null;
 let username = null;
@@ -67,39 +68,53 @@ function createGame() {
             console.log("✅ Partie créée dans Firebase :", roomId);
             // Redirection vers la page de jeu
             window.location.href = `menu/game.html?room=${roomId}&username=${encodeURIComponent(username)}`;
+			
         })
         .catch((error) => {
             console.error("❌ Erreur création Firebase :", error);
         });
 }
+
+// --------------------
+// Vérifier si je suis créateur
+// --------------------
+function checkIfCreator() {
+    const roomRef = ref(db, `rooms/${roomId}/creator`);
+    onValue(roomRef, (snapshot) => {
+        const creatorName = snapshot.val();
+        isCreator = (creatorName === username);
+    }, { onlyOnce: true });
+}
+
 // --------------------
 // Rejoindre une partie
 // --------------------
 function joinGame() {
 	username = document.getElementById("username").value.trim();
-	roomId = document.getElementById("roomInput").value.trim().toUpperCase();
+  roomId = document.getElementById("roomInput").value.trim().toUpperCase();
+  if (!username || !roomId) return alert("Entre ton pseudo et un code de partie !");
 
-	if (!username || !roomId) {
-		return alert("Entre ton pseudo et un code de partie !");
-	}
-
-	const roomCode = document.getElementById("roomCode");
-	if (roomCode) {
-		roomCode.innerHTML = `<b>Tu as rejoint la partie :</b> ${roomId}`;
-	}
+  // Ajoute le joueur dans Firebase
+  const playerRef = ref(db, `rooms/${roomId}/players/${username}`);
+  set(playerRef, { username, joinedAt: Date.now() })
+    .then(() => {
+      // Redirige vers la page de jeu
+      window.location.href = `menu/game.html?room=${roomId}&username=${encodeURIComponent(username)}`;
+    })
+    .catch((err) => console.error("Erreur en rejoignant :", err));
 
 	joinRoom();
 }
+
 function joinRoom() {
 	const playersRef = ref(db, `rooms/${roomId}/players`);
-	const newPlayer = push(playersRef);
-	set(newPlayer, username);
-	playerKey = newPlayer.key;
 
 	// Mise à jour de la liste des joueurs
 	onValue(playersRef, (snapshot) => {
 		const players = snapshot.val() || {};
-		playerList = Object.values(players);
+
+		// On récupère la liste des pseudos directement depuis les clés
+		playerList = Object.keys(players);
 
 		const playersDiv = document.getElementById("players");
 		if (playersDiv) playersDiv.innerHTML = playerList.join("<br>");
@@ -116,27 +131,74 @@ function joinRoom() {
 		}
 	});
 
+	// écouter rôle + créateur
 	listenForRole();
+	checkIfCreator();
 
 	// Supprimer joueur à la déconnexion
 	window.addEventListener("beforeunload", () => {
-		if (playerKey) {
-			remove(ref(db, `rooms/${roomId}/players/${playerKey}`));
-		}
+		remove(ref(db, `rooms/${roomId}/players/${username}`));
 	});
 }
+
+// function joinRoom() {
+// 	const playersRef = ref(db, `rooms/${roomId}/players`);
+	// const newPlayer = push(playersRef);
+	// set(newPlayer, username);
+	// playerKey = newPlayer.key;
+
+	// Mise à jour de la liste des joueurs
+	// onValue(playersRef, (snapshot) => {
+	// 	const players = snapshot.val() || {};
+	// 	playerList = Object.values(players).map(p => p.username);
+
+	// 	const playersDiv = document.getElementById("players");
+	// 	if (playersDiv) playersDiv.innerHTML = playerList.join("<br>");
+	// });
+
+	// Chat en live
+	// const chatRef = ref(db, `rooms/${roomId}/messages`);
+	// onChildAdded(chatRef, (snapshot) => {
+	// 	const msg = snapshot.val();
+	// 	const chatBox = document.getElementById("chat");
+	// 	if (chatBox) {
+	// 		chatBox.innerHTML += `<div><b>${msg.username}:</b> ${msg.message}</div>`;
+	// 		chatBox.scrollTop = chatBox.scrollHeight;
+	// 	}
+	// });
+
+	// listenForRole();
+	// checkIfCreator();
+
+	// Supprimer joueur à la déconnexion
+// 	window.addEventListener("beforeunload", () => {
+// 		if (playerKey) {
+// 			remove(ref(db, `rooms/${roomId}/players/${playerKey}`));
+// 		}
+// 	});
+// }
 
 // --------------------
 // Envoyer message
 // --------------------
 function sendMessage() {
-	const message = document.getElementById("message").value.trim();
-	if (!message || !username || !roomId) return;
+    const msgInput = document.getElementById("message");
+    const text = msgInput.value.trim();
+    if (!text) return;
 
-	const chatRef = ref(db, `rooms/${roomId}/messages`);
-	push(chatRef, { username, message });
+    const message = {
+        username: username,
+        message: text,
+        createdAt: Date.now(),
+    };
 
-	document.getElementById("message").value = "";
+    const msgRef = push(ref(db, `rooms/${roomId}/messages`));
+    set(msgRef, message).then(() => {
+        msgInput.value = "";
+    });
+
+	const boxChat = document.querySelector("#chat");
+	boxChat.innerHTML = username + " : " + msgInput.value
 }
 
 // --------------------
@@ -155,14 +217,14 @@ function startGame() {
 
 	// Rôles de base
 	let rolesPool = [
-		"Loup Garou",
-		"Loup Garou",
-		"Voyante",
-		"Sorcière",
-		"Cupidon",
+		"Ombre",
+		"Ombre",
+		"Oracle",
+		"Enchanteresse",
+		"Liant des Âmes",
 		"Villageois",
 		"Villageois",
-		"Chasseur",
+		"Âme vengeresse",
 	];
 
 	// Mélange
@@ -189,6 +251,10 @@ function startGame() {
 		{ onlyOnce: true }
 	);
 
+	  // Mettre à jour le statut de la partie
+            const statusRef = ref(db, `rooms/${roomId}/status`);
+            set(statusRef, "started");
+
 	// Phase jour
 	set(ref(db, `rooms/${roomId}/phase`), {
 		type: "day",
@@ -200,7 +266,9 @@ function startGame() {
 // Afficher mon rôle
 // --------------------
 function listenForRole() {
-	const roleRef = ref(db, `rooms/${roomId}/roles/${playerKey}`);
+	    if (!roomId || !username) return;
+
+	const roleRef = ref(db, `rooms/${roomId}/roles/${username}`);
 	onValue(roleRef, (snapshot) => {
 		const role = snapshot.val();
 		if (role) {
@@ -236,6 +304,10 @@ function endGame() {
 		// ⚠️ Correction : "roomInfo" n'existe pas dans ton HTML → je le retire
 	}
 }
+
+// --------------------
+// Inter
+// --------------------
 
 // --------------------
 // Rendre accessible depuis HTML
