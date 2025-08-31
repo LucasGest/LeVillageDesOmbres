@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Chat Loup Garou</title>
+		<title>Les Ombres du village</title>
 		<link rel="stylesheet" href="css/style.css" />
 		<link rel="icon" type="image/x-icon" href="img/site/logo.png" />
 
@@ -96,23 +96,25 @@
 		</div>
 
 		<div id="doUWantToPlay">
-			<p>Vous voulez Jouer ?</p>
+			<h3>Vous voulez Jouer ?</h3>
 
 			<div id="containerInfoSite">
 				<div id="pseudo">
-					<label for="">Pseudo : </label>
+					<label for="username">Pseudo : </label>
 					<input type="text" id="username" placeholder="Ton pseudo" />
 				</div>
 
 				<div id="codeSalon">
-					<label for="">Code du salon : </label>
+					<label for="roomInput">Code du salon : </label>
 					<input
 						type="text"
 						id="roomInput"
 						placeholder="Code de partie"
-						value="LG-"
+						value="LG-" 
 					/>
+				</div>
 
+				<div id="buttons">
 					<button onclick="joinGame()">Rejoindre</button>
 					<button onclick="createGame()">Créer une partie</button>
 				</div>
